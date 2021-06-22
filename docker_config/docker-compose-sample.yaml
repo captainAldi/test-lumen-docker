@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  testlumen-web:
+    container_name: testlumen-web
+    image: testlumen-web:latest
+    restart: unless-stopped
+    environment:
+      APP_KEY: ""
+      APP_TIMEZONE: "Asia/Jakarta"
+      CACHE_DRIVER: " "
+      REDIS_HOST: 127.0.0.1
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      REDIS_CLIENT: "predis"
+    ports:
+      - 5000:80
+    networks:
+      - testlumen
+
+  testlumen-redis:
+    container_name: testlumen-redis
+    image: redis:6.2.3-buster
+    ports:
+      - 5001:6379
+    networks:
+      - testlumen
+
+networks:
+  testlumen:
+    driver: bridge
